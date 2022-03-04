@@ -15,6 +15,7 @@ def conectar():
         return conn
     except mysql.connector.Error as e:
         print(f'Erro na conexão ao MySQL Server {e}')
+     #temq ver o q ta rolando
 
 
 def desconectar():
