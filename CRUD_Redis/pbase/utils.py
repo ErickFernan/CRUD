@@ -1,6 +1,21 @@
 import redis
 
 
+def testa_chave(chave):
+    try:
+        conn = conectar()
+        dados = conn.keys(pattern='produtos:*')  # chamar as chaves e depois os produtos
+        dados = str(dados)
+
+        if chave in dados:
+            return True
+        else:
+            return False
+
+    except redis.exceptions.ConnectionError as e:
+        print(f'Não foi possível testar a chave. {e}')
+
+
 def gera_id():
     try:
         conn = conectar()  # conecta
@@ -108,18 +123,27 @@ def atualizar():
 
     produto = {"nome": nome, "preco": preco, "estoque": estoque}  # Chave | valor
 
-    try:
-        res = conn.hmset(chave, produto)
+    resposta = testa_chave(chave)
 
-        if res:
-            print(f'O produto {nome} foi atuaizado com sucesso.')
+    if resposta:
+        try:
+            res = conn.hmset(chave, produto)
 
-        # Nesse caso se a chave não existir ela sera criada, então não tem motivo para colocar o else, depois adiciono
-        # uma função para não permitir isso, note que no momento a diferenã pro inserir é que a chave é gerada e aqui
-        # é recebida
+            if res:
+                print(f'O produto {nome} foi atuaizado com sucesso.')
 
-    except redis.exceptions.ConnectionError as e:
-        print(f'Não foi possível atualizar o produto. {e}')
+            # Nesse caso se a chave não existir ela sera criada, então não tem motivo para colocar o else, depois
+            # adiciono uma função para não permitir isso, note que no momento a diferenã pro inserir é que a chave é
+            # gerada e aqui é recebida
+
+            # O programa foi atualizado, agora possui um fç que trata a chave, se ela existir da continuidade ao código
+            # se não interrompe, portanto nã precisa do else
+
+        except redis.exceptions.ConnectionError as e:
+            print(f'Não foi possível atualizar o produto. {e}')
+
+    else:
+        print('Chave inexistente, confira a escrita.')
 
     desconectar(conn)
 
@@ -144,6 +168,7 @@ def deletar():
         print(f'Erro ao conectar ao redis. {e}')
 
     desconectar(conn)
+
 
 def menu():
     """
