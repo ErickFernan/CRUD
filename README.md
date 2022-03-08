@@ -2,7 +2,7 @@
 
 Este repositório contém programas CRUD simples, desenvolvidos para os principais banco de dados. 
 
-Os códigos são responsáveis por fazer a inserção, modificação, deleção e leitura de produtos em bancos de dados relacionais e não relacionais.
+Os códigos são responsáveis por fazer a inserção, modificação, deleção e leitura de produtos em bancos de dados relacionais e não relacionais através de um menu de opções.
 
 ## Bancos de dados usadas:
 
