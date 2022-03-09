@@ -16,4 +16,4 @@ Tipo | SQL | NoSQL
 
 Observação: Antes de rodar os códigos lembre-se de criar o banco de dados e instalar as respectivas funções no Pycharm.
 
-Ps. O Sqlite não precisa de intalação no Pycharm, pois já fazer parte do pacote.
+Ps. O Sqlite não precisa de intalação no Pycharm, pois já faz parte do pacote básico.
